@@ -26,7 +26,45 @@
  select{appearance:auto!important;-webkit-appearance:auto!important}
 }
 </style>
-</head><body><div class="top"></div><main class="app"><header class="head"><div><h1>Tesla Subsidy Calculator</h1><p>คำนวณวงเงิน ค่างวด และอัตราผลตอบแทนแบบเรียลไทม์</p></div><div class="actions"><button id="reset">คืนค่าเริ่มต้น</button><button class="primary" onclick="print()">พิมพ์ / PDF</button></div></header><div class="layout">
+
+<style id="mobile-complete-layout">
+@media screen and (max-width:820px){
+ html,body{width:100%;max-width:100%;overflow-x:hidden}
+ body{background:#eef1f5}
+ .top{height:auto;min-height:30px;padding:7px 12px;text-align:center;font-size:10px}
+ .app{width:100%;max-width:none;padding:8px}
+ .head{display:block;margin:0 0 8px;padding:14px 13px;border-top-width:3px}
+ .head h1{font-size:20px;line-height:1.25}.head p{font-size:12px;line-height:1.45}
+ .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+ .actions button{width:100%;min-height:44px;padding:10px 8px}
+ .layout{display:flex;flex-direction:column;gap:8px;width:100%}
+ .input-card,.result-card{width:100%;min-width:0;margin:0}
+ .title{padding:12px 13px;font-size:14px}
+ .section{padding:13px 12px}.section-head{margin-bottom:11px}.section-head small{font-size:11px;line-height:1.35}
+ .fields{display:grid;grid-template-columns:1fr;gap:11px}.field,.field.full{grid-column:auto;width:100%;min-width:0}
+ label{font-size:12px}.control{width:100%}.control input,.control select{width:100%;height:48px;min-height:48px;font-size:16px;padding:10px 39px 10px 11px}
+ .hint{font-size:10px;line-height:1.35}
+ .result-card{order:2}.hero{margin:9px;padding:14px;min-height:0}.hero strong{font-size:30px;line-height:1.1}.hero small{font-size:12px}
+ .mobile-summary{display:block;padding:0 9px 9px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.summary{min-width:0;padding:10px;border:1px solid var(--line);background:#fff}.summary:first-child{grid-column:1/-1}.summary strong{font-size:16px;overflow-wrap:anywhere}.summary:first-child strong{font-size:25px}
+ .table-wrap{display:block;width:100%;padding:0 9px 10px;overflow:visible}
+ table{display:block;width:100%;min-width:0;border:0;background:transparent}
+ thead{display:none}tbody{display:grid;gap:7px;width:100%}
+ tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:100%;border:1px solid var(--line);background:#fff}
+ tbody th{display:block;grid-column:1/-1;width:auto;padding:8px 10px;border:0;border-bottom:1px solid var(--line);font-size:11px;background:#f1f3f6}
+ td{display:block;position:relative;min-width:0;padding:23px 9px 8px;border:0;font-size:11px;overflow-wrap:anywhere;word-break:break-word}
+ td:nth-of-type(1){border-right:1px solid var(--line)}
+ td:nth-of-type(1):before,td:nth-of-type(2):before{display:block;position:absolute;top:6px;left:9px;color:#6c7685;font-size:8px;font-weight:800;letter-spacing:.04em}
+ td:nth-of-type(1):before{content:'IN VAT'}td:nth-of-type(2):before{content:'EX VAT'}
+ .green th,.green td{background:var(--navy);color:#fff}.green td:before{color:#cbd5e3}
+ .note{margin:9px 3px 0;font-size:9px;line-height:1.45}
+}
+@media screen and (max-width:380px){
+ .actions{grid-template-columns:1fr}.head h1{font-size:18px}
+ .summary-grid{grid-template-columns:1fr}.summary:first-child{grid-column:auto}
+ .hero strong{font-size:27px}
+}
+</style>
+</head><body><div class="top">BUSINESS LEASING SOLUTIONS</div><main class="app"><header class="head"><div><h1>วางแผนสินเชื่ออย่างมั่นใจ</h1><p>คำนวณวงเงิน ค่างวด และอัตราผลตอบแทนแบบเรียลไทม์</p></div><div class="actions"><button id="reset">คืนค่าเริ่มต้น</button><button class="primary" onclick="print()">พิมพ์ / PDF</button></div></header><div class="layout">
 <form class="card input-card" onsubmit="return false"><div class="title">ข้อมูลสำหรับการคำนวณ</div><section class="section"><div class="section-head"><span class="num">1</span><div><b>ข้อมูลรถ</b><small>ยี่ห้อ รุ่น ราคา และส่วนลด</small></div></div><div class="fields"><div class="field"><label>ยี่ห้อรถ</label><div class="control"><input id="brand" value="Tesla"></div></div><div class="field"><label>รุ่น</label><div class="control"><select id="model" aria-label="เลือกรุ่นรถ">
 <option value="Model 3 RWD" data-price="1149000" data-sub="27000">Model 3 RWD</option>
 <option value="Model 3 Premium RWD" data-price="1439000" data-sub="34000">Model 3 Premium RWD</option>
@@ -41,7 +79,7 @@
 <section class="section"><div class="section-head"><span class="num">3</span><div><b>รูปแบบการชำระ</b><small>Ending เพิ่มค่าดอกเบี้ยในช่อง 0.10% และ Beginning ลดกลับอัตโนมัติ</small></div></div><div class="fields"><div class="field full"><label>วิธีชำระค่างวด</label><div class="control"><select id="paymentMethod"><option value="beginning">Beginning - ชำระต้นงวด</option><option value="end" selected>Ending - ชำระปลายงวด</option></select></div></div></div></section><div class="error" id="error"></div></form>
 <aside class="card result-card"><div class="title">สรุปข้อเสนอทางการเงิน</div><div class="hero"><span>ค่างวดรายเดือน รวม VAT</span><strong id="monthlyVat">0</strong><small>ไม่รวม VAT: <b id="monthlyExVat">0.0000</b></small></div><div class="mobile-summary"><div class="summary-grid"><div class="summary"><span>ค่างวด / เดือน</span><strong id="mMonthly"></strong></div><div class="summary"><span>เงินดาวน์</span><strong id="mDeposit"></strong></div><div class="summary"><span>วงเงินจัด</span><strong id="mFinance"></strong></div><div class="summary"><span>Subsidy IRR</span><strong id="mSubsidyIrr"></strong></div></div></div><div class="table-wrap"><table><thead><tr><th>รายการ</th><th>In VAT</th><th>Ex VAT</th></tr></thead><tbody>
 <tr><th>List price</th><td id="listIn"></td><td id="listEx"></td></tr><tr><th>Discount</th><td id="discountIn"></td><td id="discountEx"></td></tr><tr><th>Deposit%</th><td id="depositPctIn"></td><td id="depositPctEx"></td></tr><tr><th>Deposit Amount</th><td class="red-value" id="depositIn"></td><td class="red-value" id="depositEx"></td></tr><tr><th>Finance Amount</th><td id="financeIn"></td><td id="financeEx"></td></tr><tr><th>Contract period</th><td id="yearsIn"></td><td id="yearsEx"></td></tr><tr><th>Sub Amount</th><td class="red-value" id="subIn"></td><td class="red-value" id="subEx"></td></tr><tr><th>Sub Finance Amount</th><td id="subFinanceIn"></td><td id="subFinanceEx"></td></tr><tr><th>Interest %</th><td id="interestIn"></td><td id="interestEx"></td></tr><tr><th>Payment Method</th><td id="paymentIn"></td><td id="paymentEx"></td></tr><tr><th>Actual IRR</th><td id="actualIn"></td><td id="actualEx"></td></tr><tr><th>Subsidy IRR</th><td class="red-value" id="subsidyIn"></td><td class="red-value" id="subsidyEx"></td></tr><tr><th>Monthly lease</th><td class="red-value" id="monthlyIn"></td><td class="red-value" id="monthlyEx"></td></tr><tr class="green"><th>Customer TR</th><td id="trIn"></td><td id="trEx"></td></tr>
-</tbody></table></div></aside></div><p class="note">เมื่อสลับ Beginning เป็น Ending ระบบเพิ่มค่าดอกเบี้ยในช่อง 0.10% ต่อปี และเมื่อสลับกลับเป็น Beginning ระบบลดคืน 0.10% อัตโนมัติ</p></main>
+</tbody></table></div></aside></div><p class="note">เมื่อสลับ Beginning เป็น Ending ระบบเพิ่มค่าดอกเบี้ยในช่อง 0.10% ต่อปี และเมื่อลับกลับเป็น Beginning ระบบลดคืน 0.10% อัตโนมัติ</p></main>
 <script>
 (()=>{'use strict';const VAT=1.07,$=id=>document.getElementById(id),num=id=>+String($(id).value).replace(/,/g,'')||0,money=(v,d=0)=>v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),pct=v=>(v*100).toFixed(4)+'%';function rate(n,p,pv,type){const target=-pv,f=r=>Math.abs(r)<1e-12?p*n-target:p*(1+r*type)*(1-(1+r)**(-n))/r-target;let a=-.999999,b=1;if(f(a)*f(b)>0)return NaN;for(let i=0;i<180;i++){let m=(a+b)/2;if(f(a)*f(m)<=0)b=m;else a=m}return(a+b)/2}function set(id,v){$(id).textContent=v}function format(el){let d=el.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'');el.value=(d||'0').replace(/\B(?=(\d{3})+(?!\d))/g,',')}function calc(){const price=num('listPrice'),discount=num('discount'),dp=num('depositPct')/100,years=num('years'),sub=num('subAmount'),effective=num('interestPct')/100,type=$('paymentMethod').value==='beginning'?1:0;if(price<=0||discount>price||dp<0||dp>1||years<1){$('error').className='error show';$('error').textContent='กรุณาตรวจสอบราคา ส่วนลด เงินดาวน์ และระยะเวลาสัญญา';return}$('error').className='error';const selectedModel=$('model').options[$('model').selectedIndex],targetMonthly=Number(selectedModel.dataset.targetMonthly)||0,months=years*12,targetFinance=targetMonthly?(targetMonthly*months)/(1+effective*years):0,deposit=targetMonthly?Math.max(0,Math.ceil((price-discount)-targetFinance)):((price-discount)*dp),finance=price-discount-deposit,subFinance=finance-sub,intVolume=finance*effective*years,calculatedMonthly=Math.ceil(((finance+intVolume)/months)-1e-9),monthly=targetMonthly||calculatedMonthly,monthlyEx=monthly/VAT,actual=rate(months,monthly,-finance,type)*12,subsidy=rate(months,monthly,-subFinance,type)*12,method=type?'Beginning':'Ending';$('rateHint').textContent=type?'Beginning: ใช้อัตราดอกเบี้ยตามช่องกรอก':'Ending: เพิ่มจาก Beginning 0.10% ต่อปีแล้ว';set('monthlyVat',money(monthly));set('monthlyExVat',money(monthlyEx,4));set('listIn',money(price));set('listEx',money(price/VAT,4));set('discountIn',money(discount));set('discountEx',discount?money(discount/VAT,4):'-');const displayDp=targetMonthly&&price?deposit/(price-discount):dp;if(targetMonthly) $('depositPct').value=(displayDp*100).toFixed(2);set('depositPctIn',(displayDp*100).toFixed(targetMonthly?2:0)+'%');set('depositPctEx',(displayDp*100).toFixed(4)+'%');set('depositIn',money(deposit));set('depositEx',money(deposit/VAT,4));set('financeIn',money(finance));set('financeEx',money(finance/VAT,4));set('yearsIn',money(years));set('yearsEx',money(years));set('subIn',money(sub));set('subEx',money(sub/VAT,4));set('subFinanceIn',money(subFinance));set('subFinanceEx',money(subFinance/VAT,4));set('interestIn',(effective*100).toFixed(2)+'%');set('interestEx',(effective*100).toFixed(2)+'%');set('paymentIn',method);set('paymentEx',method);set('actualIn',pct(actual));set('actualEx',pct(actual));set('subsidyIn',pct(subsidy));set('subsidyEx',pct(subsidy));set('monthlyIn',money(monthly));set('monthlyEx',money(monthlyEx,4));set('trIn',pct(subsidy));set('trEx',pct(subsidy));set('mMonthly',money(monthly));set('mDeposit',money(deposit));set('mFinance',money(finance));set('mSubsidyIrr',pct(subsidy));['brand','model','listPrice','discount','depositPct','years','subAmount','interestPct','paymentMethod'].forEach(id=>localStorage.setItem('lease_'+id,$(id).value))}document.querySelectorAll('[data-money]').forEach(el=>el.addEventListener('input',()=>{format(el);calc()}));['brand','depositPct','years','interestPct'].forEach(id=>{$(id).addEventListener('input',calc);$(id).addEventListener('change',calc)});$('reset').onclick=()=>{localStorage.clear();location.reload()};['brand','model','listPrice','discount','depositPct','years','subAmount','interestPct','paymentMethod'].forEach(id=>{const v=localStorage.getItem('lease_'+id);if(v!==null)$(id).value=v});
 const modelField=$('model');
