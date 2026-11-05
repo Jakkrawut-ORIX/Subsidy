@@ -198,6 +198,22 @@
 }
 @media print{#mobile-result-card-polish{display:none}}
 </style>
+
+<style id="contract-period-mobile-fix">
+@media screen and (max-width:820px){
+ body[data-mobile-view="result"] .contract-period-row td:nth-of-type(1){
+  padding:2px 0 0!important;
+  border:0!important;
+  font-size:clamp(9px,2.7vw,12px)!important;
+  text-align:right;
+ }
+ body[data-mobile-view="result"] .contract-period-row td:nth-of-type(1):before,
+ body[data-mobile-view="result"] .contract-period-row td:nth-of-type(2){display:none!important}
+}
+@media print{
+ .contract-period-row td:nth-of-type(2){display:table-cell!important}
+}
+</style>
 </head><body><main class="app"><header class="head"><div><h1>Tesla Subsidy Calculator</h1><p>คำนวณวงเงิน ค่างวด และอัตราผลตอบแทนแบบเรียลไทม์</p></div><div class="actions"><button id="reset">คืนค่าเริ่มต้น</button><button class="primary" onclick="print()">พิมพ์ / PDF</button></div></header><nav class="mobile-view-switcher" aria-label="สลับหน้าจอมือถือ">
 <button type="button" class="mobile-tab active" data-mobile-view="input" aria-selected="true">กรอกข้อมูล</button>
 <button type="button" class="mobile-tab" data-mobile-view="result" aria-selected="false">ดูผลลัพธ์</button>
@@ -215,7 +231,7 @@
 <section class="section"><div class="section-head"><span class="num">2</span><div><b>เงื่อนไขสินเชื่อ</b><small>เงินดาวน์ ระยะเวลา Subsidy และดอกเบี้ย</small></div></div><div class="fields"><div class="field"><label>เงินดาวน์</label><div class="control"><input id="depositPct" type="number" value="30"><span class="unit">%</span></div></div><div class="field"><label>ระยะเวลาสัญญา</label><div class="control"><input id="years" type="number" min="1" value="3"><span class="unit">ปี</span></div></div><div class="field"><label>Subsidy</label><div class="control"><input id="subAmount" inputmode="numeric" data-money value="27,000"><span class="unit">บาท</span></div><div class="hint">ยอดก่อน VAT 7%</div></div><div class="field"><label>ดอกเบี้ยต่อปี</label><div class="control"><input id="interestPct" type="number" step=".01" value="1.49"><span class="unit">%</span></div><div class="hint" id="rateHint">Ending: เพิ่มจาก Beginning 0.10% ต่อปีแล้ว</div></div></div></section>
 <section class="section"><div class="section-head"><span class="num">3</span><div><b>รูปแบบการชำระ</b><small>Ending เพิ่มค่าดอกเบี้ยในช่อง 0.10% และ Beginning ลดกลับอัตโนมัติ</small></div></div><div class="fields"><div class="field full"><label>วิธีชำระค่างวด</label><div class="control"><select id="paymentMethod"><option value="beginning">Beginning - ชำระต้นงวด</option><option value="end" selected>Ending - ชำระปลายงวด</option></select></div></div></div></section><div class="error" id="error"></div></form>
 <aside class="card result-card"><div class="title">สรุปข้อเสนอทางการเงิน</div><div class="hero"><span>ค่างวดรายเดือน รวม VAT</span><strong id="monthlyVat">0</strong><small>ไม่รวม VAT: <b id="monthlyExVat">0.0000</b></small></div><div class="mobile-summary"><div class="summary-grid"><div class="summary"><span>ค่างวด / เดือน</span><strong id="mMonthly"></strong></div><div class="summary"><span>เงินดาวน์</span><strong id="mDeposit"></strong></div><div class="summary"><span>วงเงินจัด</span><strong id="mFinance"></strong></div><div class="summary"><span>Subsidy IRR</span><strong id="mSubsidyIrr"></strong></div></div></div><div class="table-wrap"><table><thead><tr><th>รายการ</th><th>In VAT</th><th>Ex VAT</th></tr></thead><tbody>
-<tr><th>List price</th><td id="listIn"></td><td id="listEx"></td></tr><tr><th>Discount</th><td id="discountIn"></td><td id="discountEx"></td></tr><tr><th>Deposit%</th><td id="depositPctIn"></td><td id="depositPctEx"></td></tr><tr><th>Deposit Amount</th><td class="red-value" id="depositIn"></td><td class="red-value" id="depositEx"></td></tr><tr><th>Finance Amount</th><td id="financeIn"></td><td id="financeEx"></td></tr><tr><th>Contract period</th><td id="yearsIn"></td><td id="yearsEx"></td></tr><tr><th>Sub Amount</th><td class="red-value" id="subIn"></td><td class="red-value" id="subEx"></td></tr><tr><th>Sub Finance Amount</th><td id="subFinanceIn"></td><td id="subFinanceEx"></td></tr><tr><th>Interest %</th><td id="interestIn"></td><td id="interestEx"></td></tr><tr><th>Payment Method</th><td id="paymentIn"></td><td id="paymentEx"></td></tr><tr><th>Actual IRR</th><td id="actualIn"></td><td id="actualEx"></td></tr><tr><th>Subsidy IRR</th><td class="red-value" id="subsidyIn"></td><td class="red-value" id="subsidyEx"></td></tr><tr><th>Monthly lease</th><td class="red-value" id="monthlyIn"></td><td class="red-value" id="monthlyEx"></td></tr><tr class="green"><th>Customer TR</th><td id="trIn"></td><td id="trEx"></td></tr>
+<tr><th>List price</th><td id="listIn"></td><td id="listEx"></td></tr><tr><th>Discount</th><td id="discountIn"></td><td id="discountEx"></td></tr><tr><th>Deposit%</th><td id="depositPctIn"></td><td id="depositPctEx"></td></tr><tr><th>Deposit Amount</th><td class="red-value" id="depositIn"></td><td class="red-value" id="depositEx"></td></tr><tr><th>Finance Amount</th><td id="financeIn"></td><td id="financeEx"></td></tr><tr class="contract-period-row"><th>Contract period</th><td id="yearsIn"></td><td id="yearsEx" aria-hidden="true"></td></tr><tr><th>Sub Amount</th><td class="red-value" id="subIn"></td><td class="red-value" id="subEx"></td></tr><tr><th>Sub Finance Amount</th><td id="subFinanceIn"></td><td id="subFinanceEx"></td></tr><tr><th>Interest %</th><td id="interestIn"></td><td id="interestEx"></td></tr><tr><th>Payment Method</th><td id="paymentIn"></td><td id="paymentEx"></td></tr><tr><th>Actual IRR</th><td id="actualIn"></td><td id="actualEx"></td></tr><tr><th>Subsidy IRR</th><td class="red-value" id="subsidyIn"></td><td class="red-value" id="subsidyEx"></td></tr><tr><th>Monthly lease</th><td class="red-value" id="monthlyIn"></td><td class="red-value" id="monthlyEx"></td></tr><tr class="green"><th>Customer TR</th><td id="trIn"></td><td id="trEx"></td></tr>
 </tbody></table></div></aside></div>
 <div class="mobile-bottom-actions">
  <button type="button" id="mobileReset">คืนค่าเริ่มต้น</button>
