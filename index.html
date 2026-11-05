@@ -169,6 +169,35 @@
 }
 @media print{#mobile-result-one-screen{display:none}}
 </style>
+
+<style id="mobile-result-card-polish">
+@media screen and (max-width:820px){
+ body[data-mobile-view="result"] .app{padding-left:6px;padding-right:6px}
+ body[data-mobile-view="result"] .result-card{border:0;background:transparent}
+ body[data-mobile-view="result"] .result-card>.title{margin-bottom:4px;border-left:3px solid var(--red);background:var(--navy);font-size:10px}
+ body[data-mobile-view="result"] .hero{margin:0 0 5px;border:0;border-left:4px solid var(--red);border-radius:4px;box-shadow:none;background:var(--navy)}
+ body[data-mobile-view="result"] .table-wrap{padding:0;overflow:hidden}
+ body[data-mobile-view="result"] .table-wrap tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));grid-auto-flow:column;gap:4px}
+ body[data-mobile-view="result"] .table-wrap tr{display:block;position:relative;min-width:0;padding:5px 6px;background:#fff;border:1px solid #dfe4eb;border-radius:4px;overflow:hidden;box-shadow:none}
+ body[data-mobile-view="result"] .table-wrap tbody th{display:block;width:100%;height:auto;padding:0 0 3px;border:0;background:transparent;color:#5a6575;font-size:clamp(6px,1.9vw,8px);font-weight:750;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ body[data-mobile-view="result"] .table-wrap td{display:block;position:relative;width:100%;height:auto;min-height:0;padding:0 0 0 32px;border:0!important;background:transparent;color:#1c2736;font-size:clamp(7px,2.1vw,9px);font-weight:700;line-height:1.2;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ body[data-mobile-view="result"] .table-wrap td+td{margin-top:2px;padding-top:2px;border-top:1px dashed #e6e9ee!important}
+ body[data-mobile-view="result"] .table-wrap td:nth-of-type(1):before,body[data-mobile-view="result"] .table-wrap td:nth-of-type(2):before{display:block;position:absolute;left:0;top:0;color:#8791a0;font-size:5px;font-weight:800;letter-spacing:.03em}
+ body[data-mobile-view="result"] .table-wrap td:nth-of-type(1):before{content:'IN VAT'}
+ body[data-mobile-view="result"] .table-wrap td:nth-of-type(2):before{content:'EX VAT';top:2px}
+ body[data-mobile-view="result"] .table-wrap .red-value{color:var(--red)!important}
+ body[data-mobile-view="result"] .table-wrap .green{background:var(--navy);border-color:var(--navy)}
+ body[data-mobile-view="result"] .table-wrap .green th,body[data-mobile-view="result"] .table-wrap .green td{background:transparent;color:#fff}
+ body[data-mobile-view="result"] .table-wrap .green td+td{border-top-color:#48556c!important}
+ body[data-mobile-view="result"] .table-wrap .green td:before{color:#bfc9d7!important}
+}
+@media screen and (max-width:380px){
+ body[data-mobile-view="result"] .table-wrap tbody{gap:3px}
+ body[data-mobile-view="result"] .table-wrap tr{padding:4px 5px}
+ body[data-mobile-view="result"] .table-wrap td{padding-left:27px;font-size:7px}
+}
+@media print{#mobile-result-card-polish{display:none}}
+</style>
 </head><body><main class="app"><header class="head"><div><h1>Tesla Subsidy Calculator</h1><p>คำนวณวงเงิน ค่างวด และอัตราผลตอบแทนแบบเรียลไทม์</p></div><div class="actions"><button id="reset">คืนค่าเริ่มต้น</button><button class="primary" onclick="print()">พิมพ์ / PDF</button></div></header><nav class="mobile-view-switcher" aria-label="สลับหน้าจอมือถือ">
 <button type="button" class="mobile-tab active" data-mobile-view="input" aria-selected="true">กรอกข้อมูล</button>
 <button type="button" class="mobile-tab" data-mobile-view="result" aria-selected="false">ดูผลลัพธ์</button>
